@@ -4,6 +4,8 @@ const logger = require("morgan");
 const cors = require("cors");
 
 const router = require("@/routes");
+const errorHandler = require("@/utils/error-handler");
+const notFoundHandler = require("@/utils/notfound-handler");
 
 const app = express();
 
@@ -14,5 +16,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", router);
+
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 module.exports = app;
