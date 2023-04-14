@@ -11,12 +11,13 @@ const http = require("http");
 const mongoDB = require("../utils/mongodb");
 const app = require("../app");
 const dbConfig = require("../config/db.config");
+const serverConfig = require("../config/server.config");
 
 /**
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || "3000");
+const port = normalizePort(serverConfig.port);
 app.set("port", port);
 
 /**

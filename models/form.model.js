@@ -15,6 +15,10 @@ const Form = new Schema(
 			ref: "user",
 			required: true,
 		},
+		color: {
+			type: String,
+			default: "#2196f3",
+		},
 	},
 	{ timestamps: true }
 );

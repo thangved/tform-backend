@@ -9,7 +9,11 @@ const Question = new Schema(
 		},
 		type: { type: String, default: "text" },
 		requried: { type: Boolean, default: false },
-		content: { type: String, required: true },
+		content: {
+			type: String,
+			required: true,
+			default: "Nội dung câu hỏi",
+		},
 		description: { type: String },
 		options: { type: [{ type: String, required: true }], default: [] },
 	},

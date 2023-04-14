@@ -19,6 +19,7 @@ class AuthController {
 				existUser = await User.create({
 					fullName: firebaseUser.name,
 					email: firebaseUser.email,
+					avatar: firebaseUser.picture,
 				});
 			}
 
