@@ -8,7 +8,7 @@ const Question = new Schema(
 			required: true,
 		},
 		type: { type: String, default: "text" },
-		requried: { type: Boolean, default: false },
+		required: { type: Boolean, default: false },
 		content: {
 			type: String,
 			required: true,
