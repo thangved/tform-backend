@@ -11,6 +11,13 @@ class ResponseFormController {
 	async getContext(req, res, next) {
 		try {
 			const existForm = await Form.findById(req.query.formId);
+
+			if (existForm.requiredLogin && !req.currentUser) {
+				return next(
+					new ApiError(401, "Vui lòng đăng nhập để điền biểu mẫu này")
+				);
+			}
+
 			if (!existForm)
 				return next(new ApiError(404, "Không tìm thấy biểu mẫu"));
 
@@ -30,6 +37,14 @@ class ResponseFormController {
 	 */
 	async create(req, res, next) {
 		try {
+			const existForm = await Form.findById(req.body.formId);
+
+			if (existForm.requiredLogin && !req.currentUser) {
+				return next(
+					new ApiError(401, "Vui lòng đăng nhập để điền biểu mẫu này")
+				);
+			}
+
 			const newResponseForm = await ResponseForm.create({
 				formId: req.body.formId,
 			});

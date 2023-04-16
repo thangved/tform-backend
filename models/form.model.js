@@ -19,6 +19,10 @@ const Form = new Schema(
 			type: String,
 			default: "#2196f3",
 		},
+		requiredLogin: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	{ timestamps: true }
 );

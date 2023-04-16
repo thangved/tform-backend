@@ -16,6 +16,14 @@ const Question = new Schema(
 		},
 		description: { type: String },
 		options: { type: [{ type: String, required: true }], default: [] },
+		accepts: {
+			type: [{ type: String }],
+			default: [],
+		},
+		onlyAccept: {
+			type: Boolean,
+			default: false,
+		},
 	},
 	{ timestamps: true }
 );
