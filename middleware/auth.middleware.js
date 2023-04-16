@@ -23,7 +23,7 @@ const auth = async (token) => {
  */
 const AuthMiddleware = async (req, res, next) => {
 	try {
-		const token = req.headers.authorization.split(" ")[1];
+		const token = req.headers.authorization?.split(" ")[1];
 
 		if (!token) {
 			return next(new ApiError(401, "Access token is requried"));

@@ -1,9 +1,10 @@
+const ApiError = require("./api-error");
+
 /**
  * @type {import('express').RequestHandler}
  */
 const notFoundHandler = (req, res, next) => {
-	res.send(404).send({ message: "Resource not found" });
-	next();
+	next(new ApiError(404, "Resource not found"));
 };
 
 module.exports = notFoundHandler;

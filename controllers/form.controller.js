@@ -57,6 +57,8 @@ class FormController {
 				return next(new ApiError(404, "Không tìm thấy biểu mẫu"));
 			}
 
+			await existForm.updateOne({ updatedAt: new Date() });
+
 			res.send(existForm.toObject());
 		} catch (error) {
 			next(new ApiError());
