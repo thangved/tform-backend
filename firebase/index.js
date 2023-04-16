@@ -4,7 +4,7 @@ const { getStorage } = require("firebase-admin/storage");
 const { getAuth } = require("firebase-admin/auth");
 
 const firebaseAdmin = initializeApp({
-	credential: credential.cert(require("./key.json")),
+	credential: credential.cert(require("@/firebase-key.json")),
 });
 
 const firebaseStorage = getStorage(firebaseAdmin);

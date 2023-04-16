@@ -134,4 +134,4 @@ yarn.lock
 package-lock.json
 
 # Firebase key
-firebase/key.json
+firebase-key.json
