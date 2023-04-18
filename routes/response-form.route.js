@@ -9,7 +9,8 @@ router.get("/context", responseFormController.getContext);
 router
 	.route("/")
 	.post(responseFormController.create)
-	.get(AuthMiddleware, responseFormController.getAll);
+	.get(AuthMiddleware, responseFormController.getAll)
+	.delete(AuthMiddleware, responseFormController.deleteAll);
 
 router.route("/:id").delete(AuthMiddleware, responseFormController.deleteById);
 

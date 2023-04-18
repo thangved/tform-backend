@@ -47,6 +47,7 @@ class ResponseFormController {
 
 			const newResponseForm = await ResponseForm.create({
 				formId: req.body.formId,
+				userId: req.currentUser?._id,
 			});
 
 			for (const response of req.body.response) {
@@ -87,7 +88,14 @@ class ResponseFormController {
 				return next(new ApiError(404, "Không tìm thấy biểu mẫu"));
 
 			const result = [];
-			const responseForms = await ResponseForm.find({ formId });
+			const responseForms = (
+				await ResponseForm.find({ formId }).populate("userId")
+			).map((e) => {
+				e = e.toObject();
+				e.user = e.userId;
+				delete e.userId;
+				return e;
+			});
 
 			for (const responseForm of responseForms) {
 				const responses = await ResponseQuestion.find({
@@ -95,7 +103,7 @@ class ResponseFormController {
 				}).populate("questionId");
 
 				result.push({
-					responseDetails: responseForm.toObject(),
+					responseDetails: responseForm,
 					responses: responses.map((e) => {
 						e = e.toObject();
 
@@ -110,6 +118,7 @@ class ResponseFormController {
 
 			res.send(result);
 		} catch (error) {
+			console.log(error);
 			next(new ApiError());
 		}
 	}
@@ -134,6 +143,29 @@ class ResponseFormController {
 				return next(new ApiError(404, "Không tìm thấy biểu mẫu"));
 
 			await existResponse.deleteOne();
+
+			res.end();
+		} catch (error) {
+			next(new ApiError());
+		}
+	}
+
+	/**
+	 * @type {import('express').RequestHandler}
+	 */
+	async deleteAll(req, res, next) {
+		try {
+			const { formId } = req.query;
+
+			const existForm = await Form.findOne({
+				_id: formId,
+				userId: req.currentUser._id,
+			});
+
+			if (!existForm)
+				return next(new ApiError(404, "Không tìm thấy biểu mẫu"));
+
+			await ResponseForm.deleteMany({ formId });
 
 			res.end();
 		} catch (error) {
