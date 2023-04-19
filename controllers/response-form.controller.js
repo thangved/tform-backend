@@ -21,7 +21,9 @@ class ResponseFormController {
 			if (!existForm)
 				return next(new ApiError(404, "Không tìm thấy biểu mẫu"));
 
-			const questions = await Question.find({ formId: req.query.formId });
+			const questions = await Question.find({
+				formId: req.query.formId,
+			}).sort({ order: "asc" });
 
 			res.send({
 				formDetails: existForm.toObject(),
@@ -100,7 +102,9 @@ class ResponseFormController {
 			for (const responseForm of responseForms) {
 				const responses = await ResponseQuestion.find({
 					responseFormId: responseForm._id,
-				}).populate("questionId");
+				})
+					.populate("questionId")
+					.sort({ order: "asc" });
 
 				result.push({
 					responseDetails: responseForm,

@@ -24,6 +24,7 @@ const Question = new Schema(
 			type: Boolean,
 			default: false,
 		},
+		order: { type: Number, default: 0 },
 	},
 	{ timestamps: true }
 );

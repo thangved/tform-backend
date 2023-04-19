@@ -99,7 +99,9 @@ class QuestionController {
 			}
 
 			res.send(
-				(await Question.find({ formId })).map((e) => e.toObject())
+				(await Question.find({ formId }).sort({ order: "asc" })).map(
+					(e) => e.toObject()
+				)
 			);
 		} catch (error) {
 			next(new ApiError());
