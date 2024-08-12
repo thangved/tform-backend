@@ -2,6 +2,11 @@ const express = require("express");
 const path = require("path");
 const logger = require("morgan");
 const cors = require("cors");
+const RateLimit = require("express-rate-limit");
+const limiter = RateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 100, // max 100 requests per windowMs
+});
 
 const router = require("@/routes");
 const errorHandler = require("@/utils/error-handler");
@@ -11,6 +16,7 @@ const UserMiddleware = require("./middleware/user.middleware");
 
 const app = express();
 
+app.use(limiter);
 app.use(cors({ origin: serverConfig.frontendOrigin }));
 app.use(logger("dev"));
 app.use(express.json());
